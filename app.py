@@ -8,7 +8,7 @@ firebase = pyrebase.initialize_app(firebase_config)
 auth = firebase.auth()
 db = firebase.database()
 
-# app.secret_key = 'sjkvbkadvna_122'
+app.secret_key = 'sjkvbkadvna_122'
 
 
 @app.route('/')

@@ -1,19 +1,40 @@
 import firebase_admin
-from firebase_admin import credentials, firestore
+from firebase_admin import credentials, firestore, initialize_app
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # Path to your downloaded service account key
-cred = credentials.Certificate("demo01-15564-firebase-adminsdk-fbsvc-0f811dddd9.json")
-firebase_admin.initialize_app(cred)
+cred = credentials.Certificate({
+    "type": os.getenv("FIREBASE_TYPE"),
+    "project_id": os.getenv("FIREBASE_PROJECT_ID"),
+    "private_key_id": os.getenv("FIREBASE_PRIVATE_KEY_ID"),
+    "private_key": os.getenv("FIREBASE_PRIVATE_KEY").replace('\\n', '\n'),
+    "client_email": os.getenv("FIREBASE_CLIENT_EMAIL"),
+    "client_id": os.getenv("FIREBASE_CLIENT_ID"),
+    "auth_uri": os.getenv("FIREBASE_AUTH_URI"),
+    "token_uri": os.getenv("FIREBASE_TOKEN_URI"),
+    "auth_provider_x509_cert_url": os.getenv("FIREBASE_AUTH_PROVIDER_CERT_URL"),
+    "client_x509_cert_url": os.getenv("FIREBASE_CLIENT_CERT_URL"),
+    "universe_domain": os.getenv("FIREBASE_UNIVERSE_DOMAIN")
+})
+initialize_app(cred)
+# firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 
+
+
 firebase_config = {
-    "apiKey": "AIzaSyAYVd_88XdAwGGbclcp_RZ1LhuWTc4b-5U",
-    "authDomain": "demo02-e0c66.firebaseapp.com",
-    "projectId": "demo02-e0c66",
-    "databaseURL": "https://demo02-e0c66-default-rtdb.firebaseio.com",
-    "storageBucket": "demo02-e0c66.firebasestorage.app",
-    "messagingSenderId": "1090057688003",
-    "appId": "1:1090057688003:web:7e44f034b6446b99646376"
+    "apiKey": os.getenv("FIREBASE_API_KEY"),
+    "authDomain": os.getenv("FIREBASE_AUTH_DOMAIN"),
+    "databaseURL": os.getenv("FIREBASE_DATABASE_URL"),
+    "projectId": os.getenv("FIREBASE_PROJECT_ID"),
+    "storageBucket": os.getenv("FIREBASE_STORAGE_BUCKET"),
+    "messagingSenderId": os.getenv("FIREBASE_MESSAGING_SENDER_ID"),
+    "appId": os.getenv("FIREBASE_APP_ID"),
+    # "serviceAccount": os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 }
+
 
