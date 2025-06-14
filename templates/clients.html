@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% block title %}Clients{% endblock %}
+
+{% block content %}
+<h2>Clients</h2>
+
+<a href="{{ url_for('add_client') }}" class="btn btn-primary mb-3">Add Client</a>
+
+
+
+<table class="table">
+    <thead>
+        <tr><th>Name</th><th>Email</th><th>Phone</th></tr>
+    </thead>
+    <tbody>
+    {% for client in clients %}
+    <tr>
+        <td>{{ client.name }}</td>
+        <td>{{ client.email }}</td>
+        <td>{{ client.phone }}</td>
+        <td>
+            <form action="{{ url_for('delete_client', client_id=client.key) }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this client?')">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+
+</table>
+{% endblock %}
